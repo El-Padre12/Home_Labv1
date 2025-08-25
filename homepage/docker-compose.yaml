@@ -1,0 +1,16 @@
+services:
+  homepage:
+    image: ghcr.io/gethomepage/homepage:latest
+    container_name: homepage
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env
+    environment:
+      PUID: ${PUID}   # Ensure these are set in your .env file
+      PGID: ${PGID}   # Ensure these are set in your .env file
+      HOMEPAGE_ALLOWED_HOSTS: home-labv1:3000,localhost:3000,127.0.0.1:3000,192.168.1.251:3000
+    volumes:
+      - ./config:/app/config
+      # - /var/run/docker.sock:/var/run/docker.sock   # Uncomment to enable Docker integration
+    restart: unless-stopped
